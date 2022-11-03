@@ -28,6 +28,28 @@ class Solution:
         print(dp)
         return dp[n][m]
 
+class Solution:
+    # recursive method
+    def isMatch(self, s: str, p: str) -> bool:
+        if p == '':
+            return s == ''
+        last = p[-1]
+        if last == '.':
+            return self.isMatch(s[:-1], p[:-1])
+        elif last == '*':
+            if len(s) == 0:
+                return self.isMatch(s, p[:-2])
+            ch_p = p[-2]
+            ch_s = s[-1]
+            if ch_p == ch_s or ch_p == '.':
+                return self.isMatch(s[:-1], p) or self.isMatch(s[:-1], p[:-2]) or self.isMatch(s, p[:-2])
+            else:
+                return self.isMatch(s, p[:-2])
+        else:
+            if last == s[-1:]:
+                return self.isMatch(s[:-1], p[:-1])
+            else:
+                return False
 
 s = 'a'
 p = '.*'
